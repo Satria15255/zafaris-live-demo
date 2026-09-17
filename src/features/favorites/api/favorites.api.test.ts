@@ -14,7 +14,7 @@ describe("Favorites APi", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
 	});
-	it("Should fetch current usere's favorites", async () => {
+	it("Should fetch current user's favorites", async () => {
 		const fakeFavorites = {
 			favorites: [],
 		};
