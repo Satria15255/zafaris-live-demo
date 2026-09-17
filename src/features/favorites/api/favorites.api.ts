@@ -1,6 +1,16 @@
 import { api } from "@/lib/api/request";
-import { ProductSummary, Favorites } from "../types/favorites.types";
+import type { FavoritesResponse } from "../types/favorites.types";
 
-export const favoritesApi = {
-	getAll: () => api.get<Favorites>("/favorites"),
+export const getFavorites = (): Promise<FavoritesResponse> => {
+	return api.get<FavoritesResponse>("/favorites");
+};
+
+export const addFavorites = (productId: string): Promise<FavoritesResponse> => {
+	return api.post<FavoritesResponse>(`/favorites/${productId}`);
+};
+
+export const removeFavorites = (
+	productId: string,
+): Promise<FavoritesResponse> => {
+	return api.delete<FavoritesResponse>(`/favorites/${productId}`);
 };

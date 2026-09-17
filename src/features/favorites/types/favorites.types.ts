@@ -1,21 +1,6 @@
-export interface ProductSummary {
-	_id: string;
-	name: string;
-	brand: string;
-	price: number;
-	image: string;
-	description: string;
-	category: string;
-	sizes: number[];
-	createdBy: string;
-	createdAt: string;
-	updatedAt: string;
-	isBestSeller: boolean;
-	totalSold: number;
-	id: string;
-}
+import { Product } from "@/features/products/types/product.types";
 
-export interface Favorites {
+export interface FavoritesResponse {
 	message: string;
-	favorites: ProductSummary;
+	favorites: Product[];
 }

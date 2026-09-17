@@ -8,13 +8,18 @@ export const api = {
 		return response.data;
 	},
 
-	post: async <T, D = uknown>(
+	post: async <T, D = unknown>(
 		url: string,
 		data?: D,
 		config?: AxiosRequestConfig,
 	): Promise<T> => {
 		const response = await apiClient.post<T>(url, data, config);
 
+		return response.data;
+	},
+
+	delete: async <T>(url: string, config?: AxiosRequestConfig): Promise<T> => {
+		const response = await apiClient.delete<T>(url, config);
 		return response.data;
 	},
 };
