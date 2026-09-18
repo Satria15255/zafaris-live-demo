@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { api } from "@/lib/api/request";
-import { getFavorites, addFavorites, removeFavorites } from "./favorites.api";
+import { favoritesApi } from "./favorites.api";
 
 vi.mock("@/lib/api/request", () => ({
 	api: {
@@ -21,7 +21,7 @@ describe("Favorites APi", () => {
 
 		vi.mocked(api.get).mockResolvedValue(fakeFavorites);
 
-		const result = await getFavorites();
+		const result = await favoritesApi.get();
 
 		expect(api.get).toHaveBeenCalledWith("/favorites");
 
@@ -37,7 +37,7 @@ describe("Favorites APi", () => {
 
 		vi.mocked(api.post).mockResolvedValue(fakeFavorites);
 
-		const result = await addFavorites(productId);
+		const result = await favoritesApi.add(productId);
 
 		expect(api.post).toHaveBeenCalledWith(`/favorites/${productId}`);
 
@@ -53,7 +53,7 @@ describe("Favorites APi", () => {
 
 		vi.mocked(api.delete).mockResolvedValue(fakeFavorites);
 
-		const result = await removeFavorites(productId);
+		const result = await favoritesApi.remove(productId);
 
 		expect(api.delete).toHaveBeenCalledWith(`/favorites/${productId}`);
 		expect(result).toEqual(fakeFavorites);

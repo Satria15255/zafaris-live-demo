@@ -1,4 +1,4 @@
-export interface ProductVariants {
+export interface ProductVariant {
 	_id: string;
 	product: string;
 	size: number;
@@ -16,13 +16,13 @@ export interface Product {
 	description?: string;
 	brand?: string;
 	category?: string;
-	image?: string[];
+	image?: string;
 
 	totalSold: number;
 	isBestSeller: boolean;
 	sizes: number[];
 
-	variants: ProductVariants[];
+	variants: ProductVariant[];
 
 	createdBy?: string | null;
 	createdAt: string;
@@ -30,8 +30,8 @@ export interface Product {
 }
 
 export interface ProductDetail extends Product {
-	discountPrice: number;
-	discountPercent: number | null;
+	discountPrice: number | null;
+	discountPercent: number;
 	isDiscount: boolean;
 }
 

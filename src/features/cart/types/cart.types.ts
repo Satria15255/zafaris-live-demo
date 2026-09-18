@@ -1,28 +1,42 @@
-import { Product } from "@/features/products/types/product.types";
+import type { Product } from "@/features/products/types/product.types";
 
-export interface CartPayload {
-	product: string;
+export interface AddToCartPayload {
+	productId: string;
 	size: number;
-	quantity: number;
+	quantity?: number;
 }
 
-export interface ItemsSummary {
-	productId: string;
+export interface CartItem<TProduct = string> {
+	_id: string;
+	productId: TProduct;
 	quantity: number;
 	size: number;
 	price: number;
 	discountPercent: number;
 	finalPrice: number;
-	_id: string;
 }
 
-export interface CartSummary {
+export interface Cart<TProduct = string> {
 	_id: string;
 	userId: string;
-	cart: ItemsSummary[];
+	items: CartItems<TProduct>[];
 }
 
-export interface CartResponse {
+export interface UpdateCartQuantityPayload {
+	productId: string;
+	size: number;
+	quantity: number;
+}
+
+export interface GetCartResponse {
+	cart: CartItem<Prorduct>[];
+}
+
+export interface CartMutationResponse {
 	message: string;
-	cart: CartSummary;
+	cart: Cart<string>;
+}
+
+export interface CartMessageRespone {
+	message: string;
 }

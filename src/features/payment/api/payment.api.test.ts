@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { api } from "@/lib/api/request";
-import { completedPayment } from "./payment.api";
+import { paymentApi } from "./payment.api";
 import { OrderResponse } from "@/features/orders/test/order.fixture";
 
 vi.mock("@/lib/api/request", () => ({
@@ -20,7 +20,7 @@ describe("Paid the orders", () => {
 		};
 
 		vi.mocked(api.patch).mockResolvedValue(OrderResponse);
-		const result = await completedPayment(id, payload);
+		const result = await paymentApi.pay(id, payload);
 		expect(api.patch).toHaveBeenCalledWith(
 			`/transactions/${id}/payment`,
 			payload,

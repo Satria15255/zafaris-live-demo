@@ -1,57 +1,65 @@
-export interface OrderProductsPayload {
+export interface OrderProductPayload {
 	product: string;
 	size: number;
 }
 
 export type OrderPaymentMethod = "Cash on Delivery" | "Transfer";
-
-export interface CreateOrderPayload {
-	products: OrderProductsPayload[];
-
-	name: string;
-	phoneNumber: number;
-
-	message?: string;
-
-	paymentMethod: OrderPaymentMethod;
-	shippingMethod: string;
-	shippingAdress: string;
-	transferProvider?: string;
-	voucherCode?: string;
-}
+export type OrderPaymentStatus = "Unpaid" | "Paid" | "Expired";
+export type OrderStatus =
+	| "Pending"
+	| "Processing"
+	| "Shipped"
+	| "Delivered"
+	| "Cancelled"
+	| "Expired"
+	| "Completed";
 
 export interface OrderProduct {
-	product: string[];
+	product: string;
 	name: string;
 	brand: string;
-	image: string[];
+	image: string;
 	size: number;
 	quantity: number;
 	originalPrice: number;
 	discountPercent: number;
 	pricePerUnit: number;
-	subTotal: number;
+	subtotal: number;
+}
+export interface CreateOrderPayload {
+	products: OrderProduct[];
+
+	name: string;
+	phoneNumber: string;
+
+	message?: string;
+
+	paymentMethod: OrderPaymentMethod;
+	shippingMethod: string;
+	shippingAddress: string;
+	transferProvider?: string;
+	voucherCode?: string;
 }
 
 export interface Order {
 	_id: string;
 	user: string;
-	products: OrderProductsPayload;
+	products: OrderProductPayload;
 	name: string;
-	totalProduct: number;
+	totalProducts: number;
 	finalPrice: number;
 	totalPrice: number;
-	phoneNumber: number;
+	phoneNumber: string;
 	message?: string;
 	shippingMethod: string;
 	shippingAdress: string;
-	voucherCode: string;
+	voucherCode?: string;
 	discountAmount: number;
 	paymentMethod: OrderPaymentMethod;
 	transferProvider?: string;
-	paymentStatus: string;
-	paymentExpiresAt: string | null;
-	status: string;
+	paymentStatus: OrderPaymentStatus;
+	paymentExpiredAt: string | null;
+	status: OrderStatus;
 	createdAt: string;
 	updatedAt: string;
 }

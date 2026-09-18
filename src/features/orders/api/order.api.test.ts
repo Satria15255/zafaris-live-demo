@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { api } from "@/lib/api/request";
-import { createOrder } from "./order.api";
+import { orderApi } from "./order.api";
 import { orderPayload, orderResponse } from "../test/order.fixture";
 
 vi.mock("@/lib/api/request", () => ({
@@ -19,7 +19,7 @@ describe("Order  API  test", () => {
 	it("Should create a order", async () => {
 		vi.mocked(api.post).mockResolvedValue(orderResponse);
 
-		const result = await createOrder(orderPayload);
+		const result = await orderApi.create(orderPayload);
 
 		expect(api.post).toHaveBeenCalledWith("/transactions", orderPayload);
 		expect(result).toEqual(orderResponse);

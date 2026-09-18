@@ -1,11 +1,13 @@
 import { api } from "@/lib/api/request";
-import { CreateOrderPayload, CreateOrderResponse } from "../types/order.types";
+import type {
+	CreateOrderPayload,
+	CreateOrderResponse,
+} from "../types/order.types";
 
-export const createOrder = (
-	data: CreateOrderPayload,
-): Promise<CreateOrderResponse> => {
-	return api.post<CreateOrderResponse, CreateOrderPayload>(
-		"/transactions",
-		data,
-	);
+export const orderApi = {
+	create: (data: CreateOrderPayload) =>
+		api.post<CreateOrderResponse, CreateOrderPayload>(
+			"/transactions",
+			data,
+		),
 };

@@ -1,17 +1,27 @@
 import { api } from "@/lib/api/request";
-import { CartPayload, CartResponse } from "../types/cart.types";
 
-export const getCart = (): Promise<CartResponse> => {
-	return api.get<CartResponse>("/cart");
-};
+import type {
+	AddToCartPayload,
+	UpdateCartQuantityPayload,
+	GetCartResponse,
+	CartMutationResponse,
+	CartMessageResponse,
+} from "../types/cart.types";
 
-export const addToCart = (data: CartPayload): Promise<CartResponse> => {
-	return api.post<CartResponse, CartPayload>("/cart/add", data);
-};
+export const cartApi = {
+	get: () => api.get<GetCartResponse>("/cart"),
 
-export const removeCart = (
-	productId: string,
-	size: string,
-): Promise<CartResponse> => {
-	return api.delete<CartResponse>(`/cart/remove/${productId}/${size}`);
+	add: (payload: AddToCartPayload) =>
+		api.post<CartMutationResponse, AddToCartPayload>("/cart/add", payload),
+
+	updateQuantity: (payload: UpdateCartQuantityPayload) =>
+		api.patch<CartMutationResponse, UpdateCartQuantityPayload>(
+			"/cart/update",
+			payload,
+		),
+
+	remove: (productId: string, size: number) =>
+		api.delete<CartMutationResponse>(`/cart/remove/${productId}/${size}`),
+
+	clear: () => api.delete<CartMessageResponse>("/cart/clear"),
 };

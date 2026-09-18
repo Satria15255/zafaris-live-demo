@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from "vitest";
 import { api } from "@/lib/api/request";
-import { getCart, addToCart, removeCart } from "./cart.api";
+import { cartApi } from "./cart.api";
 
 vi.mock("@/lib/api/request", () => ({
 	api: {
@@ -21,7 +21,7 @@ describe("Cart API test", () => {
 
 		vi.mocked(api.get).mockResolvedValue(fakeCart);
 
-		const result = await getCart();
+		const result = await cartApi.get();
 
 		expect(api.get).toHaveBeenCalledWith("/cart");
 
@@ -40,7 +40,7 @@ describe("Cart API test", () => {
 		};
 
 		vi.mocked(api.post).mockResolvedValue(fakeCart);
-		const result = await addToCart(payload);
+		const result = await cartApi.add(payload);
 		expect(api.post).toHaveBeenCalledWith("/cart/add", payload);
 		expect(result).toEqual(fakeCart);
 	});
@@ -54,7 +54,7 @@ describe("Cart API test", () => {
 		};
 
 		vi.mocked(api.delete).mockResolvedValue(fakeCart);
-		const result = await removeCart(productId, size);
+		const result = await cartApi.remove(productId, size);
 		expect(api.delete).toHaveBeenCalledWith(
 			`/cart/remove/${productId}/${size}`,
 		);
